@@ -3,6 +3,7 @@ package peachy.app.start.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,11 @@ public class StartController {
 	
 	@Autowired
 	private StartService service;
+	
+	@GetMapping("/")
+	@Operation(summary = "AWS Health Check 회피용")
+    public void awsHealthCheck() {
+	}
 	
 	@PostMapping("/getAppInfo")
 	@Operation(summary = "앱정보조회", description = "서버에서 필요한 데이터를 받고 App에 필요한 데이터 넘김")
