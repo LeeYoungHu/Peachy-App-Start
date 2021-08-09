@@ -22,6 +22,7 @@ public class SwaggerConfig {
 		return GroupedOpenApi
 				.builder()
 				.group("Non Security Open Api")
+				.pathsToExclude("/")
 				.addOpenApiCustomiser(buildNonSecurityOpenApi(active))
 				.build();
 	}
@@ -32,9 +33,9 @@ public class SwaggerConfig {
 		if ("local".equals(active)) {
 			url = "http://localhost:8080/";
 		} else if ("dev".equals(active)) {
-			url = "https://start.app.peachy-dev.com/";
+			url = "https://start.peachy-dev.com/";
 		} else if ("prd".equals(active)) {
-			url = "https://start.app.peachy-dev.com/";						
+			url = "https://start.peachy-dev.com/";						
 		}
 		server.setUrl(url);
 		List<Server> serverList = new ArrayList<Server>();
