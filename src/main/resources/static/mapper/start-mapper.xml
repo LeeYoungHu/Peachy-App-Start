@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peachy.app.start.mapper.StartMapper">
+	
+	<update id="updateUserAppInfo">
+		UPDATE PH_APP_INFO
+		SET DEVICE_ID = #{deviceId}
+			<if test="fcmToken != null and fcmToken !=''">
+				,FCM_TOKEN = #{fcmToken}
+			</if>
+			,DEVICE_TYPE = #{deviceType}
+			,OS_VS = #{osVs}
+			,LAST_UPD_ID = #{userSeq}
+			,LAST_UPD_DT = now()
+		WHERE USER_SEQ = #{userSeq}
+	</update>
+	
+	<select id="getAppInfo" resultType="String">
+		SELECT
+			ETC_META_01 AS APP_VERSION
+		FROM CODE_ID
+		WHERE CODE_GRP_ID = 'APP_VERSION'
+		AND CODE = #{deviceType}
+	</select>
+	
+	<select id="getActionData" resultType="peachy.app.start.vo.AppInfoVo$AppActionData">
+		SELECT
+			CODE AS ACTION_TYPE
+			,ETC_META_01 AS MSG
+		FROM CODE_ID
+		WHERE CODE_GRP_ID = 'APP_ACTION'
+		AND CODE = (SELECT CODE FROM CODE_ID WHERE CODE_GRP_ID = 'APP_NOW_ACTION')
+	</select>
+
+</mapper>

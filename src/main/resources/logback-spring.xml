@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+      		<pattern>%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-3level %logger{5} - %msg %n</pattern>
+    	</encoder>
+  	</appender>
+  	
+	<property name="LOG_PATH" value="/home/ec2-user/log/start/data.log" />
+	  
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}</file>
+	  	<!-- 일자별로 로그파일 적용하기 -->
+	  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	  		<fileNamePattern>${LOG_PATH}.%d{yyyyMMdd}-%i</fileNamePattern>
+	  		<maxHistory>10</maxHistory>
+	  		<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			    <maxFileSize>10MB</maxFileSize>
+		    </timeBasedFileNamingAndTriggeringPolicy>
+	  	</rollingPolicy>
+	  	<encoder>
+      		<pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+      	</encoder>
+	</appender>  
+
+  	<logger name="jdbc" level="OFF"/>
+  	<logger name="jdbc.sqlonly" level="OFF"/>
+  	<logger name="jdbc.sqltiming" level="DEBUG"/>
+  	<logger name="jdbc.audit" level="OFF"/>
+  	<logger name="jdbc.resultset" level="OFF"/>
+  	<logger name="jdbc.resultsettable" level="DEBUG"/>
+  	<logger name="jdbc.connection" level="OFF"/>
+  	
+	<springProfile name="local">
+		<root level="DEBUG">
+    		<appender-ref ref="STDOUT" />
+  		</root>   
+  	</springProfile>  
+    
+	<springProfile name="dev">
+    	<root level="DEBUG">
+    		<appender-ref ref="STDOUT" />
+    		<appender-ref ref="FILE" />    	
+  		</root> 
+  	</springProfile>
+  
+  	<springProfile name="prd">
+    	<root level="INFO">
+    		<appender-ref ref="STDOUT" />
+    		<appender-ref ref="FILE" />    	
+  		</root> 
+  	</springProfile>
+	     
+</configuration>

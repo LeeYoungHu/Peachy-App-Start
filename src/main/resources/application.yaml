@@ -1,0 +1,46 @@
+server:
+  port: 8080
+    
+mybatis:
+  config-location: 'classpath:static/config/mybatis-config.xml' 
+  mapper-locations:
+  - 'classpath:static/mapper/*.xml'
+  
+--- #local
+spring: 
+  profiles: local
+  datasource:
+    driver-class-name: 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'
+    url: 'jdbc:log4jdbc:mysql://peachy-database-dev-instance-1.c9z3uirxawzv.ap-northeast-2.rds.amazonaws.com:3306/peachydb?characterEncoding=UTF-8&useSSL=false'
+    hikari:
+      username: 'peachy'
+      password: 'vltgkek0415'
+      connection-timeout: 10000
+      max-lifetime: 150000
+      maximum-pool-size: 10
+    
+--- #dev
+spring: 
+  profiles: dev
+  datasource:
+    driver-class-name: 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'
+    url: 'jdbc:log4jdbc:mysql://peachy-database-dev-instance-1.c9z3uirxawzv.ap-northeast-2.rds.amazonaws.com:3306/peachydb?characterEncoding=UTF-8&useSSL=false'
+    hikari:
+      username: 'peachy'
+      password: 'vltgkek0415'
+      connection-timeout: 10000
+      max-lifetime: 150000
+      maximum-pool-size: 10
+      
+--- #prd
+spring: 
+  profiles: prd
+  datasource:
+    driver-class-name: 'net.sf.log4jdbc.sql.jdbcapi.DriverSpy'
+    url: 'jdbc:log4jdbc:mysql://peachy-database-dev-instance-1.c9z3uirxawzv.ap-northeast-2.rds.amazonaws.com:3306/peachydb?characterEncoding=UTF-8&useSSL=false'
+    hikari:
+      username: 'peachy'
+      password: 'vltgkek0415'
+      connection-timeout: 10000
+      max-lifetime: 150000
+      maximum-pool-size: 10
