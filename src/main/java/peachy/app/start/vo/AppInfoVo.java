@@ -23,7 +23,7 @@ public class AppInfoVo {
 	public static class AppActionData {
 		@Schema(title = "보여줘야 할 메시지")
 		private String msg;
-		@Schema(title = "행동해야 할 Action 타입")
+		@Schema(title = "행동해야 할 Action 타입<br/>codeGrpId=APP_ACTION 참조<br/>A01:앱종료, A02:스토어이동, A03:앱 진입, A04:스토어 이동 후 앱 종료")
 		private String actionType;
 	}
 	
